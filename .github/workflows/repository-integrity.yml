@@ -38,4 +38,5 @@ jobs:
       - name: Run project acceptance checks
         shell: bash
         run: |
+          cargo +stable generate-lockfile
           cargo +stable test --locked -p bevy_math -p bevy_ecs --lib
