@@ -12,6 +12,7 @@ on:
 
 jobs:
   welcome:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write

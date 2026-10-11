@@ -24,6 +24,7 @@ env:
 
 jobs:
   env:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     outputs:
       MSRV: ${{ steps.msrv.outputs.MSRV }}
@@ -39,6 +40,7 @@ jobs:
           echo "MSRV=$msrv" >> $GITHUB_OUTPUT
 
   build-caches:
+    if: github.repository == 'bevyengine/bevy'
     name: Build Caches
     needs: ["env"]
     runs-on: ${{ matrix.os }}
@@ -184,6 +186,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.toolchain }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.toml') }}-${{ hashFiles('Cargo.lock') }}-${{ steps.get-date.outputs.date }}
 
   build-apt-cache:
+    if: github.repository == 'bevyengine/bevy'
     name: Build apt kisak/turtle Cache
     runs-on: ubuntu-24.04
 

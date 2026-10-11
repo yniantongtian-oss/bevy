@@ -24,6 +24,7 @@ env:
 
 jobs:
   check-advisories:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -36,6 +37,7 @@ jobs:
         run: cargo deny check advisories
 
   check-bans:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -48,6 +50,7 @@ jobs:
         run: cargo deny check bans
 
   check-licenses:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
@@ -60,6 +63,7 @@ jobs:
         run: cargo deny check licenses
 
   check-sources:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0

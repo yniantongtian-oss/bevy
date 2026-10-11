@@ -25,6 +25,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.repository == 'bevyengine/bevy'
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
@@ -56,6 +57,7 @@ jobs:
         run: cargo run -p ci -- test
 
   ci:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -91,6 +93,7 @@ jobs:
         run: cargo run -p ci -- lints
 
   miri:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: macos-latest
     timeout-minutes: 60
     steps:
@@ -127,6 +130,7 @@ jobs:
           MIRIFLAGS: -Zmiri-disable-isolation
 
   check-compiles:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: ci
@@ -156,6 +160,7 @@ jobs:
         run: cargo run -p ci -- compile
 
   check-compiles-no-std:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: ci
@@ -191,6 +196,7 @@ jobs:
         run: cargo check -p bevy --no-default-features --features default_no_std,web --target x86_64-unknown-none
 
   check-compiles-no-std-portable-atomic:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: ci
@@ -221,6 +227,7 @@ jobs:
         run: cargo check -p bevy --no-default-features --features default_no_std --target thumbv6m-none-eabi
 
   check-compiles-no-std-examples:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: ci
@@ -251,6 +258,7 @@ jobs:
         run: cd examples/no_std/library && cargo check --no-default-features --features libm,critical-section --target x86_64-unknown-none
 
   build-wasm:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: build
@@ -281,6 +289,7 @@ jobs:
         run: cargo check --target wasm32-unknown-unknown
 
   build-wasm-atomics:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: build
@@ -316,7 +325,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: check-missing-features-in-docs
-    if: always()
+    if: ${{ (github.repository == 'bevyengine/bevy') && (always()) }}
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
@@ -333,6 +342,7 @@ jobs:
           ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
 
   toml:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -354,6 +364,7 @@ jobs:
           echo 'You can find the extension here: https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml'
 
   typos:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -372,6 +383,7 @@ jobs:
           echo 'You can find the extension here: https://marketplace.visualstudio.com/items?itemName=tekumara.typos-vscode'
 
   check-doc:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -412,6 +424,7 @@ jobs:
       #   continue-on-error: true
 
   check-missing-examples-in-docs:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -448,6 +461,7 @@ jobs:
           path: missing-examples/
 
   check-missing-features-in-docs:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: check-missing-examples-in-docs
@@ -485,6 +499,7 @@ jobs:
           path: missing-features/
 
   msrv:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     needs: build
@@ -532,6 +547,7 @@ jobs:
           path: msrv/
 
   check-bevy-internal-imports:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -556,6 +572,7 @@ jobs:
           fi
 
   check-release-content:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

@@ -22,6 +22,7 @@ env:
 
 jobs:
   run-examples-macos-metal:
+    if: github.repository == 'bevyengine/bevy'
     runs-on: macos-14
     timeout-minutes: 30
     steps:
@@ -82,7 +83,7 @@ jobs:
           path: example-run/
 
   compare-macos-screenshots:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ (github.repository == 'bevyengine/bevy') && (github.event_name != 'pull_request') }}
     name: Compare Macos screenshots
     needs: [run-examples-macos-metal]
     uses: ./.github/workflows/send-screenshots-to-pixeleagle.yml
@@ -95,7 +96,7 @@ jobs:
       PIXELEAGLE_TOKEN: ${{ secrets.PIXELEAGLE_TOKEN }}
 
   run-examples-linux-vulkan:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ (github.repository == 'bevyengine/bevy') && (github.event_name != 'pull_request') }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -169,6 +170,7 @@ jobs:
           path: example-run/
 
   compare-linux-screenshots:
+    if: github.repository == 'bevyengine/bevy'
     name: Compare Linux screenshots
     needs: [run-examples-linux-vulkan]
     uses: ./.github/workflows/send-screenshots-to-pixeleagle.yml
@@ -181,7 +183,7 @@ jobs:
       PIXELEAGLE_TOKEN: ${{ secrets.PIXELEAGLE_TOKEN }}
 
   run-examples-on-windows-dx12:
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ (github.repository == 'bevyengine/bevy') && (github.event_name != 'pull_request') }}
     runs-on: windows-latest
     # See https://github.com/bevyengine/bevy/issues/24106 for discussions on speeding this up
     timeout-minutes: 60
@@ -237,6 +239,7 @@ jobs:
           path: example-run/
 
   compare-windows-screenshots:
+    if: github.repository == 'bevyengine/bevy'
     name: Compare Windows screenshots
     needs: [run-examples-on-windows-dx12]
     uses: ./.github/workflows/send-screenshots-to-pixeleagle.yml
